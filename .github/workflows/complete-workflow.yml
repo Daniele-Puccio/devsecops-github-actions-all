@@ -14,7 +14,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven cloud
-      run:  mvn -B verify sonar:sonar -Dsonar.projectKey=javaprojectreachability -Dsonar.organization=javaprojectreachability -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+      run:  mvn -B verify sonar:sonar -Dsonar.projectKey=Daniele-Puccio -Dsonar.organization=Daniele-Puccio -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -23,9 +23,9 @@ jobs:
     needs: build
     name: Run the SCA scan on the source code
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: RunSnyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
+        uses: snyk/actions/maven@main
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: master
+          ref: main
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.6.1
         with:
